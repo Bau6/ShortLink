@@ -1,3 +1,4 @@
+import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.io.File;
@@ -9,7 +10,7 @@ public class Main {
     private static User currentUser;
     private static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws URISyntaxException, IOException {
         while (true) {
             System.out.println("Выберите действие:");
             System.out.println("1. Регистрация");
@@ -66,7 +67,7 @@ public class Main {
                             int lifespan = scanner.nextInt();
 
                             // Создаем объект ссылки
-                            Link link = new Link(longUrl, shortUrl, creationDate, maxUses, lifespan, currentUser.getUsername());
+                            Link link = new Link(longUrl, shortUrl, creationDate, maxUses, lifespan, currentUser.getUsername(), 0);
 
                             // Сохраняем ссылку в файл
                             try {
@@ -85,10 +86,12 @@ public class Main {
                             currentUser.printUserInfo();
                             break;
                         case 3:
-                            System.out.println("Введите короткую ссылку:");
-                            shortUrl = scanner.nextLine();
-                            longUrl = currentUser.getLongUrl(shortUrl);
-                            System.out.println("Длинная ссылка: " + longUrl);
+                            currentUser.printLinks();
+                            String chooseLink = scanner.nextLine();
+                            while (chooseLink == null || chooseLink.equals("")) {
+                                chooseLink = scanner.nextLine();
+                            }
+                            currentUser.goToLink(chooseLink);
                             break;
                         case 4:
                             currentUser = null;

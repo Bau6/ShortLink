@@ -7,15 +7,17 @@ public class Link {
     private LocalDateTime creationDate;
     private int maxUses;
     private int lifespan;
+    private int uses;
     private String username;
 
-    public Link(String longUrl, String shortUrl, LocalDateTime creationDate, int maxUses, int lifespan, String username) {
+    public Link(String longUrl, String shortUrl, LocalDateTime creationDate, int maxUses, int lifespan, String username, int uses) {
         this.longUrl = longUrl;
         this.shortUrl = shortUrl;
         this.creationDate = creationDate;
         this.maxUses = maxUses;
         this.lifespan = lifespan;
         this.username = username;
+        this.uses = uses;
     }
 
     public String getLongUrl() {
@@ -42,9 +44,13 @@ public class Link {
         return username;
     }
 
+    public int getUses() {
+        return uses;
+    }
+
     // Метод для преобразования ссылки в строку для записи в файл
     @Override
     public String toString() {
-        return longUrl + "///" + shortUrl + "///" + creationDate + "///" + maxUses + "///" + lifespan + "///" + username + "///" + 0;
+        return longUrl + "///" + shortUrl + "///" + creationDate + "///" + maxUses + "///" + lifespan + "///" + username + "///" + uses;
     }
 }
